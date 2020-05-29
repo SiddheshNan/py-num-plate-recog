@@ -56,7 +56,9 @@ def detectNoPlate():
             cv2.rectangle(orig, (x, y), (w, h), (0, 255, 0), 2)
             cv2.putText(im, 'plate detected', (x - 10, y - 10), cv2.FONT_HERSHEY_PLAIN, 1.2, (0, 255, 0), 2)
             cv2.rectangle(im, (x, y), (w, h), (0, 255, 0), 2)
-            cv2.imwrite("roi1.png", gray[y:y + w, x:x + h])
+            cv2.imwrite("roi1.png", gray[y:h, x:w])
+            # cv2.imwrite("roi1.png", gray[y:y + h, x:x + w])
+            # cv2.imshow('test', gray[y:y + h, x:x + w])
             text = pytesseract.image_to_string(Image.open('roi1.png'))
             # text = "123"
             print("found text: ", text)
@@ -89,8 +91,6 @@ def detectNoPlate():
 
     if number != '':
         return number
-
-        # DoRequests({"status": "out", "vehicle": "vehicle1", "number": vehicle1_number, 'charge': '10'}).start()
 
 
 class DoRequests(threading.Thread):
@@ -131,7 +131,7 @@ class MainThread(threading.Thread):
                         new_vehicle_status = arduino.read().decode('ascii')
                         if new_vehicle_status != current_vehicles:
                             break
-                    print("vehicle parked!", new_vehicle_status)  ## status updated
+                    print("vehicle parked! ", new_vehicle_status)  ## status updated
                     chk = True
                     if new_vehicle_status == 'B':
                         vehicle2_intime = datetime.now()
@@ -156,37 +156,40 @@ class MainThread(threading.Thread):
 
             elif rd == 'Y' and chk:
                 arduino.write('O'.encode('ascii'))
-                time.sleep(2) # was 4
+                time.sleep(2)  # was 4
                 arduino.write('S'.encode('ascii'))
                 data_came = arduino.read().decode('ascii')
                 if data_came == 'A':  # both gone
                     print('both vehicle slots empty')
                     if vehicle2_number == '':
                         diff = datetime.now() - vehicle1_intime
-                        DoRequests({"status": "out", "vehicle": "vehicle1", "number": vehicle1_number, "charge": diff}).start()
+                        DoRequests(
+                            {"status": "out", "vehicle": "vehicle1", "number": vehicle1_number, "charge": diff}).start()
                         vehicle1_number = ''
                         vehicle1_intime = ''
                         print("vehicle 1 gone...")
                     elif vehicle1_number == '':
                         diff = datetime.now() - vehicle2_intime
-                        DoRequests({"status": "out", "vehicle": "vehicle2", "number": vehicle2_number, "charge": diff}).start()
+                        DoRequests(
+                            {"status": "out", "vehicle": "vehicle2", "number": vehicle2_number, "charge": diff}).start()
                         vehicle2_number = ''
                         vehicle2_intime = ''
                         print("vehicle 2 gone..")
 
                 if data_came == 'C':  # veh2 gone
                     diff = datetime.now() - vehicle2_intime
-                    DoRequests({"status": "out", "vehicle": "vehicle2", "number": vehicle2_number, "charge": diff}).start()
+                    DoRequests(
+                        {"status": "out", "vehicle": "vehicle2", "number": vehicle2_number, "charge": diff}).start()
                     vehicle2_number = ''
                     vehicle2_intime = ''
                     print("vehicle 2 gone...")
                 if data_came == 'B':  # veh1 gone
                     diff = datetime.now() - vehicle1_intime
-                    DoRequests({"status": "out", "vehicle": "vehicle1", "number": vehicle1_number, "charge": diff}).start()
+                    DoRequests(
+                        {"status": "out", "vehicle": "vehicle1", "number": vehicle1_number, "charge": diff}).start()
                     vehicle1_number = ''
                     vehicle1_intime = ''
                     print("vehicle 1 gone...")
-
 
 
 main_thread = MainThread(True)
