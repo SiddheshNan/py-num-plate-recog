@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<?xml-stylesheet type='text/xsl' href='image_metadata_stylesheet.xsl'?>
+<dataset>
+<name>imglab dataset</name>
+<comment>Created by imglab tool.</comment>
+<images>
+  <image file='roi/ROI2020-05-29 13:35:20.png'>
+    <box top='96' left='124' width='238' height='100'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:35:29.png'>
+    <box top='111' left='158' width='233' height='100'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:36:34.png'>
+    <box top='54' left='159' width='228' height='110'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:36:38.png'>
+    <box top='124' left='166' width='229' height='99'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:36:44.png'>
+    <box top='192' left='171' width='228' height='92'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:36:53.png'>
+    <box top='72' left='158' width='229' height='98'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:36:57.png'>
+    <box top='189' left='167' width='226' height='89'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:36:59.png'>
+    <box top='187' left='170' width='220' height='97'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:37:00.png'>
+    <box top='182' left='171' width='216' height='110'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:37:09.png'>
+    <box top='138' left='157' width='228' height='90'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:37:18.png'>
+    <box top='83' left='160' width='233' height='89'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:37:22.png'>
+    <box top='54' left='158' width='228' height='100'/>
+  </image>
+  <image file='roi/ROI2020-05-29 13:37:25.png'>
+    <box top='54' left='154' width='233' height='90'/>
+  </image>
+</images>
+</dataset>
